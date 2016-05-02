@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Lab_5.Models
+{
+    public class Stop
+    {
+        public int StopID { get; set; }
+        public string Name { get; set; }
+        public double LongLat { get; set; }
+        public DateTime ArrivalDate { get; set; }
+        public int Order { get; set; }
+    }
+}
