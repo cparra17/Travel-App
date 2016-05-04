@@ -10,8 +10,8 @@ namespace Lab_5.Models
     {
         public int TripID { get; set; }
         public string Name { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime DateCreated { get; set; }
         public string UserName { get; set; }
-        public ICollection Stops { get; set; }
+        public ICollection<Stop> Stops { get; set; }
     }
 }

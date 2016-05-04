@@ -9,7 +9,8 @@ namespace Lab_5.Models
     {
         public int StopID { get; set; }
         public string Name { get; set; }
-        public double LongLat { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         public DateTime ArrivalDate { get; set; }
         public int Order { get; set; }
     }

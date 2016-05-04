@@ -8,6 +8,11 @@ using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Lab_5.Models;
 using Microsoft.Data.Entity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.PlatformAbstractions;
+using MVC6.Models;
+using AutoMapper;
+using Lab_5.ViewModels;
 
 namespace Lab_5
 {
@@ -23,10 +28,12 @@ namespace Lab_5
                 options =>
             options.UseSqlServer(Configuration["Data:DefaultConnection:TripsConnectionString"])
             );
+            services.AddTransient<TripsSeedData>();
+            services.AddScoped<TripsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, TripsSeedData seed)
         {
             //app.UseIISPlatformHandler();
 
@@ -44,9 +51,25 @@ namespace Lab_5
             });
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            seed.InsertSeedData();
+            Mapper.Initialize(config =>
+                {
+                    config.CreateMap<Trip, TripViewModel>().ReverseMap();
+                }
+            );
         }
 
         // Entry point for the application.
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+
+        public static IConfigurationRoot Configuration;
+        public Startup(IApplicationEnvironment appEnv)
+        {
+            var builder = new ConfigurationBuilder()
+              .SetBasePath(appEnv.ApplicationBasePath)
+              .AddJsonFile("config.json");
+
+            Configuration = builder.Build();
+        }
     }
 }

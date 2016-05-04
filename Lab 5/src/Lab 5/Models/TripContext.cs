@@ -15,9 +15,15 @@ namespace Lab_5.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connString =
-               Startup.Configuration["Data:DefaultConnection:Server = (localdb)\\MSSQLLocalDB; Database = TripDB; Trusted_Connection = True; "];
+               Startup.Configuration["Data:DefaultConnection:TripsConnectionString"];
             optionsBuilder.UseSqlServer(connString);
             base.OnConfiguring(optionsBuilder);
         }
+
+        public TripContext()
+        {
+            Database.EnsureCreated();
+        }
+       
     }
 }
