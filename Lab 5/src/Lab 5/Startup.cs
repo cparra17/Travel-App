@@ -13,6 +13,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using MVC6.Models;
 using AutoMapper;
 using Lab_5.ViewModels;
+using Lab_5.Services;
 
 namespace Lab_5
 {
@@ -30,6 +31,7 @@ namespace Lab_5
             );
             services.AddTransient<TripsSeedData>();
             services.AddScoped<TripsRepository>();
+            services.AddScoped<CoordinateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
